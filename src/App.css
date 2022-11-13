@@ -26,6 +26,16 @@ body {
   height: 1000px;
   border-radius: 10px;
   margin: auto;
+  display: flex;
+}
+
+.dice-container {
+  display: grid;
+  grid: 100px 300px / 3fr 1fr;
+}
+
+.die {
+  background-color: #FFFFFF;
 }
 
 @keyframes App-logo-spin {
