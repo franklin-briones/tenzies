@@ -30,15 +30,16 @@ function App() {
   });
 
   function rollDice() {
-    setDiceArray(allNewDice())
+    setDiceArray(allNewDice());
   }
 
-
   return (
-    <div className='App'>
-      <main className='main'>
-        <div className='dice-container'>{diceElements}</div>
-        <button className='roll-button' onClick={rollDice}>Roll</button>
+    <div className="App">
+      <main className="main">
+        <div className="dice-container">{diceElements}</div>
+        <button className="roll-button" onClick={rollDice}>
+          Roll
+        </button>
       </main>
     </div>
   );
