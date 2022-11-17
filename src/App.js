@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Die from './components/Die';
 
@@ -14,10 +15,7 @@ import Die from './components/Die';
  */
 
 function App() {
-  [diceArray, setDiceArray] = React.useState(allNewDice);
-  const diceToDisplay = diceArray.map((diceVal) => {
-    return <Die value={diceVal} />;
-  });
+  const [diceArray, setDiceArray] = React.useState(allNewDice());
 
   function allNewDice() {
     const newDice = [];
@@ -27,10 +25,20 @@ function App() {
     return newDice;
   }
 
+  const diceElements = diceArray.map((diceVal) => {
+    return <Die value={diceVal} />;
+  });
+
+  function rollDice() {
+    setDiceArray(allNewDice())
+  }
+
+
   return (
-    <div className="App">
-      <main className="main">
-        <div className="dice-container">{Dice}</div>
+    <div className='App'>
+      <main className='main'>
+        <div className='dice-container'>{diceElements}</div>
+        <button className='roll-button' onClick={rollDice}>Roll</button>
       </main>
     </div>
   );
