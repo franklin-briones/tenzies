@@ -1,15 +1,27 @@
 import './App.css';
 import Die from "./components/Die"
 
-
+function allNewDice() {
+  const newDice=[]
+  for (let i = 0; i< 10; i++) {
+    newDice.push(Math.ceil(Math.random() * 6))
+  }
+  return newDice
+}
 
 function App() {
 
-const diceVals = Array.from({length: 10}, () => Math.floor(Math.random() * 10))
-const Dice = diceVals.map((diceVal) => {
-    <Die value={diceVal} />
+const diceNums= allNewDice()
+const Dice = diceNums.map((diceVal) => {
+    return (
+      <Die
+      value={diceVal} 
+      />
+      )
 })
 
+
+console.log(Dice[1])
   return (
     <div className="App">
       <main className='main'>
