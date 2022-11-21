@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Die from './components/Die';
+import {nanoid} from "nanoid"
 
 /**
  * Challenge:
@@ -15,23 +16,25 @@ import Die from './components/Die';
  */
 
 function App() {
-  const [diceArray, setDiceArray] = React.useState(allNewDice());
+  const [dice, setDice] = React.useState(allNewDice());
 
   function allNewDice() {
     const newDice = [];
     for (let i = 0; i < 10; i++) {
-      newDice.push(Math.ceil(Math.random() * 6));
+      newDice.push({
+        id: nanoid(),
+        value: Math.ceil(Math.random() * 6),
+        isHeld: false
+      })
     }
     return newDice;
   }
 
-  const diceElements = diceArray.map((diceVal) => {
-    return <Die value={diceVal} />;
-  });
-
   function rollDice() {
-    setDiceArray(allNewDice());
+    setDice(allNewDice());
   }
+
+  const diceElements = dice.map((die) => {return <Die key={die.id} value={die.value} />;});
 
   return (
     <div className="App">
