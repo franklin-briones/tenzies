@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid';
 /**
  * Challenge: Allow the user to play a new game when the
  * button is clicked and they've already won
-*/
+ */
 function App() {
   // Create state var that contains array of Dice for each new game
   const [dice, setDice] = React.useState(allNewDice());
@@ -19,13 +19,14 @@ function App() {
     const allSameVal = dice.every((die) => firstVal === die.value);
     if (allHeld && allSameVal) {
       setTenzies(true);
+      console.log(dice);
       console.log('you won!');
     }
   }, [dice]);
 
- /**
- * @return {An array of length 10, each item is a dice object} 
- */
+  /**
+   * @return {An array of length 10, each item is a dice object}
+   */
   function allNewDice() {
     const newDice = [];
     for (let i = 0; i < 10; i++) {
@@ -34,7 +35,7 @@ function App() {
     return newDice;
   }
   /**
-   * 
+   *
    * @returns {A new object with a unique id, random int from 1-6, and isHeld to false}
    */
   function generateNewDie() {
@@ -45,16 +46,20 @@ function App() {
     };
   }
 
-  // Helped function to create new array of dice
   /**
-   * When a new game is created, the old dice are replaced with new dice
+   * Helper function to create new array of dice for all unheld dice
    */
   function rollDice() {
-    setDice((oldDice) =>
-      oldDice.map((oldDie) => {
-        return oldDie.isHeld ? oldDie : generateNewDie();
-      })
-    );
+    if (!tenzies) {
+      setDice((oldDice) =>
+        oldDice.map((oldDie) => {
+          return oldDie.isHeld ? oldDie : generateNewDie();
+        })
+      );
+    } else {
+      setTenzies(false);
+      setDice(allNewDice);
+    }
   }
 
   // Map dice array to <Die /> elements
@@ -64,7 +69,11 @@ function App() {
     );
   });
 
-  // Update the color of the dice if it's held
+  //
+  /**
+   * Update the color of the dice if it's held
+   * @param {number} id - the ID of a die
+   */
   function holdDice(id) {
     setDice((oldDice) =>
       oldDice.map((oldDie) => {
