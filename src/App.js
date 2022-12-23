@@ -5,15 +5,11 @@ import Die from './components/Die';
 import { nanoid } from 'nanoid';
 
 /**
- * Challenge: Check the dice array for these winning conditions:
- * 1. All dice are held, and
- * 2. all dice have the same value
- *
- * If both conditions are true, set `tenzies` to true and log
- * "You won!" to the console
- */
-
+ * Challenge: Allow the user to play a new game when the
+ * button is clicked and they've already won
+*/
 function App() {
+  // Create state var that contains array of Dice for each new game
   const [dice, setDice] = React.useState(allNewDice());
   const [tenzies, setTenzies] = React.useState(false);
 
@@ -27,7 +23,9 @@ function App() {
     }
   }, [dice]);
 
-  // Return array of length 10, each item is a dice object
+ /**
+ * @return {An array of length 10, each item is a dice object} 
+ */
   function allNewDice() {
     const newDice = [];
     for (let i = 0; i < 10; i++) {
@@ -35,7 +33,10 @@ function App() {
     }
     return newDice;
   }
-
+  /**
+   * 
+   * @returns {A new object with a unique id, random int from 1-6, and isHeld to false}
+   */
   function generateNewDie() {
     return {
       id: nanoid(),
@@ -45,8 +46,10 @@ function App() {
   }
 
   // Helped function to create new array of dice
+  /**
+   * When a new game is created, the old dice are replaced with new dice
+   */
   function rollDice() {
-    //setDice(allNewDice());
     setDice((oldDice) =>
       oldDice.map((oldDie) => {
         return oldDie.isHeld ? oldDie : generateNewDie();
